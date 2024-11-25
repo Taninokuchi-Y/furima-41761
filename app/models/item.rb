@@ -33,8 +33,8 @@ class Item < ApplicationRecord
   # 価格が必須であること
   validates :price, presence: true
 
-  # 価格が範囲内であること（1以上1000000以下）
-  validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1000000, message: "is invalid" }
+  # 価格が範囲内であること（300以上9999999以下）
+  validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is invalid" }
 
   # 商品画像が必須であること
   validates :image, presence: true
