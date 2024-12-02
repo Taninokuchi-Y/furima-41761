@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all.order(created_at: :desc)
@@ -28,14 +28,16 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to item_path(@item), notice: '商品情報が更新されました。'
+      redirect_to item_path(@item), notice: "商品情報が更新されました。"
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # def destroy
-  # end
+  def destroy
+    @item.destroy
+    redirect_to root_path, notice: "商品を削除しました。"
+  end
   
   private
   
@@ -51,7 +53,7 @@ class ItemsController < ApplicationController
 
   def correct_user
     if @item.user != current_user
-      redirect_to root_path, alert: "他のユーザーの商品は編集できません。"
+      redirect_to root_path, alert: "この操作は許可されていません。"
     end
   end
   
