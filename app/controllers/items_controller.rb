@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def correct_user
-    if @item.user != current_user
+    if @item.user != current_user || @item.purchase&.present?
       redirect_to root_path, alert: "この操作は許可されていません。"
     end
   end

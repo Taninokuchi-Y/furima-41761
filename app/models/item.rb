@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   belongs_to :item_postage
   belongs_to :prefecture
   belongs_to :item_shipping_time
+  has_one :purchase
 
   has_one_attached :image # 商品画像を1枚必須にする
 
